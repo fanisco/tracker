@@ -2,9 +2,11 @@ import {
   BelongsToMany,
   Column,
   DataType,
+  HasMany,
   Model,
   Table,
 } from 'sequelize-typescript';
+import { Event } from 'src/events/event.model';
 
 import { Role } from '../roles/role.model';
 import { UserRoles } from '../roles/user-roles.model';
@@ -27,4 +29,7 @@ export class User extends Model<User> {
 
   @BelongsToMany(() => Role, () => UserRoles)
   roles: Role[];
+
+  @HasMany(() => Event, { foreignKey: 'userId' })
+  events: Event[];
 }
