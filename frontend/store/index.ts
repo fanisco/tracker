@@ -1,1 +1,6 @@
-export { default as eventsApi, useGetAllQuery } from './services/EventsService';
+export {
+  default as eventsApi,
+  useGetAllQuery,
+  useCreateEventMutation,
+  useDeleteEventMutation,
+} from './services/EventsService';

@@ -13,6 +13,7 @@ import {
   selectWeekModeDays,
 } from '../../store/features/calendarSlice';
 import { useAppSelector } from '../../store/hooks';
+import { Controller } from '../Events';
 
 import { CalendarModeProps } from './CalendarMode';
 import { weekEventAdapter } from './WeekCalendar.helpers';
@@ -34,7 +35,17 @@ const Week: FC<WeekProps> = ({ events, ...rest }) => {
       headers={<WeekHeaders headers={weekDays} />}
       side={<Ruler values={dayHours} />}
     >
-      <WeekTable days={weekModeDays} hours={dayHours} data={data} />
+      <Controller>
+        {(onEventCreate, onEventContextMenu) => (
+          <WeekTable
+            days={weekModeDays}
+            hours={dayHours}
+            data={data}
+            onEventCreate={onEventCreate}
+            onEventContextMenu={onEventContextMenu}
+          />
+        )}
+      </Controller>
       <Cursor />
     </Layout>
   );

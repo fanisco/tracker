@@ -6,17 +6,39 @@ import { transformResponse } from './EventsService.helpers';
 const eventsApi = createApi({
   reducerPath: 'eventsApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'api/',
+    baseUrl: 'api/trackings',
   }),
+  tagTypes: ['Events'],
   endpoints: (build) => ({
     getAll: build.query<Event[], void>({
       query: () => ({
-        url: '/trackings',
+        url: '/',
       }),
       transformResponse,
+      providesTags: ['Events'],
+    }),
+    createEvent: build.mutation({
+      query: (body) => ({
+        url: '/',
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: ['Events'],
+    }),
+    deleteEvent: build.mutation({
+      query: ({ id }) => ({
+        url: '/',
+        method: 'DELETE',
+        body: { id },
+      }),
+      invalidatesTags: ['Events'],
     }),
   }),
 });
 
-export const { useGetAllQuery } = eventsApi;
+export const {
+  useGetAllQuery,
+  useCreateEventMutation,
+  useDeleteEventMutation,
+} = eventsApi;
 export default eventsApi;
