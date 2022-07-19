@@ -14,9 +14,9 @@ export class AuthController {
     @Body() dto: CreateUserDto,
     @Res({ passthrough: true }) response: Response,
   ) {
-    const { token } = await this.authService.login(dto);
+    const { token, expires } = await this.authService.login(dto);
 
-    response.cookie('token', token, { httpOnly: true });
+    response.cookie('token', token, { httpOnly: true, expires });
     return { token };
   }
 

@@ -45,8 +45,13 @@ export class AuthService {
       roles: user.roles.map((role) => role.value),
     };
 
+    const token = this.jwtService.sign(payload);
+    const decoded = this.jwtService.decode(token) as Record<string, any>;
+    const expires = new Date(decoded.exp * 1000);
+
     return {
-      token: this.jwtService.sign(payload),
+      token,
+      expires,
     };
   }
 
