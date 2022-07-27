@@ -6,7 +6,7 @@ import { transformResponse } from './EventsService.helpers';
 const eventsApi = createApi({
   reducerPath: 'eventsApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'api/trackings',
+    baseUrl: 'api/events',
   }),
   tagTypes: ['Events'],
   endpoints: (build) => ({
