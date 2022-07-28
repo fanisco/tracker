@@ -11,6 +11,8 @@ export interface Event extends BasicEntity {
 export type EventDto = Pick<Event, 'title' | 'dateStart' | 'dateEnd'>;
 
 export interface Entry extends BasicEntity {
+  today?: boolean; // FixMe
+  weekend?: boolean; // FixMe
   events: Event[];
 }
 

@@ -1,4 +1,4 @@
-import { Tracking } from '../../models';
+import { Event } from '../../models';
 
 export type OnEventCreate = (date: Date) => void;
-export type OnEventContextMenu = (event: Tracking) => void;
+export type OnEventContextMenu = (event: Event) => void;

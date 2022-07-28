@@ -1,13 +1,13 @@
 import { FC, FormHTMLAttributes } from 'react';
 import { Dialog as UiDialog } from '@headlessui/react';
 
-import { Tracking } from '../../models';
+import { Event } from '../../models';
 import { Button } from '../Buttons';
 import { InvisibleInput } from '../Forms';
 import DatePicker from './DatePicker';
 
 export interface DialogProps
-  extends Partial<Pick<Tracking, 'title' | 'dateStart' | 'dateEnd'>>,
+  extends Partial<Pick<Event, 'title' | 'dateStart' | 'dateEnd'>>,
     FormHTMLAttributes<HTMLFormElement> {
   open: boolean;
   onClose: (value: boolean) => void;

@@ -46,6 +46,7 @@ const Controller: FC<ControllerProps> = ({ children }) => {
         'getAll',
         undefined,
         (draftEvents) => {
+          // @ts-ignore - FixMe
           draftEvents.push(newEvent);
         },
       ),

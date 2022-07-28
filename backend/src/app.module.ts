@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
 
 import { User } from './users/user.model';
@@ -14,17 +14,22 @@ import { Event } from './events/event.model';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: `.${process.env.NODE_ENV || 'development'}.env`,
+      isGlobal: true,
+      envFilePath: '../.env',
     }),
-    SequelizeModule.forRoot({
-      dialect: 'postgres',
-      host: process.env.POSTGRES_HOST,
-      port: Number(process.env.POSTGRESS_PORT),
-      username: process.env.POSTGRES_USER,
-      password: process.env.POSTGRESS_PASSWORD,
-      database: process.env.POSTGRES_DB,
-      models: [Role, Event, User, UserRoles],
-      autoLoadModels: true,
+    SequelizeModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (config: ConfigService) => ({
+        dialect: 'postgres',
+        host: config.get('POSTGRES_HOST'),
+        port: Number(config.get('POSTGRES_PORT')),
+        username: config.get('POSTGRES_USER'),
+        password: config.get('POSTGRES_PASSWORD'),
+        database: config.get('POSTGRES_DB'),
+        models: [Role, Event, User, UserRoles],
+        autoLoadModels: true,
+      }),
     }),
     UsersModule,
     AuthModule,

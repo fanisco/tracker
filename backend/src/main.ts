@@ -5,7 +5,7 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from './pipes/validation.pipe';
 
 async function bootstrap() {
-  const PORT = process.env.PORT || 3001;
+  const PORT = process.env.API_PORT || 3001;
   const app = await NestFactory.create(AppModule);
 
   app.use(cookieParser());
